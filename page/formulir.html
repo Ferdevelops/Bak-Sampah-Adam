@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulir Penjual Sampah</title>
+    <link rel="stylesheet" href="../stylee.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: white;
+      }
+      .navbar {
+        background: #212121;
+        margin: 0;
+        padding: 20px 30px;
+      }
+      .BSD {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        color: yellow;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .menu {
+        margin: 0;
+        display: flex;
+        list-style: none;
+        padding: 0;
+      }
+      .menu li {
+        margin-right: 10px;
+      }
+      .menu li a {
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+      }
+      .tombol {
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
+      }
+      .form-section {
+        padding: 20px;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group button {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .btn-primary {
+        background-color: blue;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .btn-primary:hover {
+        background-color: darkblue;
+      }
+
+      .menu {
+    margin: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    position: relative;
+    z-index: 10;
+}
+.menu li {
+    padding-left: 0;
+    margin-right: 10px;
+}
+.menu li a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+.tombol {
+    display: none;
+    color: white;
+    font-size: 14pt;
+}
+.tombol:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .tombol {
+        display: block;
+    }
+}
+.menu.aktif {
+    display: inline-block;
+    position: absolute;
+    top: 64px;
+    background: #212121;
+    padding: 10px 20px;
+    right: 0;
+    left: 0;
+}
+.menu.aktif li a {
+    padding: 10px;
+    display: inline-block !important;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="https://www.mazda.co.id" class="BSD">BSD</a>
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../index.html#tentang">About Us</a></li>
+          <li><a href="../page/daftar-sampah.html">Daftar Sampah</a></li>
+          <li><a href="../page/formulir.html">Formulir Penjual Sampah</a></li>
+          <li><a href="../page/kritiksaran.html">Kritik Dan Saran</a></li>
+        </ul>
+        <div class="tombol">&#9776;</div>
+      </div>
+    </nav>
+    <h2>Form Penjualan Sampah</h2>
+    <form id="formSampah" class="contact-form" onsubmit="submitForm(event)">
+      <div class="form-group">
+          <label for="nama">Nama:</label>
+          <input type="text" id="nama" name="nama" required />
+      </div>
+      <div class="form-group">
+          <label for="kelas">Kelas:</label>
+          <input type="text" id="kelas" name="kelas" required />
+      </div>
+      <div class="form-group">
+          <label for="jenisSampah">Jenis Sampah:</label>
+          <select id="jenisSampah" name="jenisSampah" required >
+              <option value="">Pilih jenis sampah</option>
+              <option value="organik">Sampah Organik</option>
+              <option value="anorganik">Sampah Anorganik</option>
+              <option value="ewaste">E-Waste</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <label for="tanggal">Tanggal:</label>
+          <input type="date" id="tanggal" name="tanggal"  required/>
+      </div>
+      <button type="submit" class="btn-primary">
+          Submit
+      </button>
+  </form>
+</section>
+
+<script>
+  function submitForm(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const kelas = document.getElementById("kelas").value;
+      const jenisSampah = document.getElementById("jenisSampah").value;
+      const tanggal = document.getElementById("tanggal").value;
+
+      
+      if (!nama || !kelas || !jenisSampah || !tanggal) {
+          alert("Harap isi semua kolom.");
+          return;
+      }
+
+      
+      localStorage.setItem("nama", nama);
+      localStorage.setItem("kelas", kelas);
+      localStorage.setItem("jenisSampah", jenisSampah);
+      localStorage.setItem("tanggal", tanggal);
+
+      
+      if (jenisSampah === "organik") {
+          window.location.href = "sampah_organik.html"; 
+      } else if (jenisSampah === "anorganik") {
+          window.location.href = "sampah_anorganik.html"; 
+      } else if (jenisSampah === "ewaste") {
+          window.location.href = "ewaste.html";
+      }
+  }
+  const tombol = document.querySelector(".tombol");
+      const menu = document.querySelector(".menu");
+      tombol.addEventListener("click", () => {
+        menu.classList.toggle("aktif");
+      });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keranjang Belanjaan</title>
+    <link rel="stylesheet" href="../stylee.css" />
+    <style>
+      
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: white;
+      }
+      .navbar {
+        background: #212121;
+        margin: 0;
+        padding: 20px 30px;
+      }
+      .BSD {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        color: yellow;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .menu {
+        margin: 0;
+        display: flex;
+        list-style: none;
+        padding: 0;
+        position: relative;
+        z-index: 10;
+      }
+      .menu li {
+        padding-left: 0;
+        margin-right: 10px;
+      }
+      .menu li a {
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      #addItemForm {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      #addItemForm input,
+      #addItemForm select {
+        margin: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 150px;
+      }
+      #addItemForm button {
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+      }
+      #addItemForm button:hover {
+        background-color: #45a049;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      td button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-right: 10px;
+      }
+      td button:hover {
+        background-color: #d32f2f;
+      }
+      td button:last-child {
+        margin-right: 0;
+      }
+      .receipt {
+        margin: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #f9f9f9;
+      }
+      .receipt h3 {
+        margin-top: 0;
+      }
+      .receipt p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="https://www.mazda.co.id" class="BSD">BSD</a>
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../index.html#tentang">About Us</a></li>
+          <li><a href="../page/daftar-sampah.html">Daftar Sampah</a></li>
+          <li><a href="../page/formulir.html">Formulir Penjual Sampah</a></li>
+          <li><a href="../page/kritiksaran.html">Kritik & Saran</a></li>
+          <li><a href="../page/keranjang.html">Keranjang</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <h2>Keranjang Belanjaan</h2>
+
+    <div id="addItemForm">
+      <input type="text" id="nama" placeholder="Nama" required />
+      <input type="text" id="kelas" placeholder="Kelas" required />
+      <select id="kategori" onchange="updateJenisSampah()" required>
+        <option value="" disabled selected>Pilih Kategori</option>
+        <option value="organik">Organik</option>
+        <option value="anorganik">Anorganik</option>
+        <option value="ewaste">E-Waste</option>
+      </select>
+      <select id="jenisSampah" required>
+        <option value="" disabled selected>Pilih Jenis Sampah</option>
+      </select>
+      <select id="pembayaran" required>
+        <option value="" disabled selected>Pilih Jenis Pembayaran</option>
+        <option value="dana">Dana</option>
+        <option value="gopay">Gopay</option>
+        <option value="mbanking">Mbanking</option>
+      </select>
+      <input
+        type="number"
+        id="jumlahSampah"
+        placeholder="Jumlah (kg)"
+        required
+      />
+      <button type="button" onclick="addItem()">Tambah Item</button>
+    </div>
+
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Kelas</th>
+          <th>Kategori</th>
+          <th>Jenis Sampah</th>
+          <th>Jumlah Sampah (kg)</th>
+          <th>Harga (Rp)</th>
+          <th>Pembayaran</th>
+          <th>Tombol</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="receipt">
+      <h3>Struk Belanja</h3>
+      <div id="receiptContent"></div>
+    </div>
+
+    <script>
+      const jenisSampahOptions = {
+        organik: [
+          { nama: "Sayuran Busuk", harga: 1500 },
+          { nama: "Buah Busuk", harga: 1800 },
+          { nama: "Daun Kering", harga: 1200 },
+          { nama: "Potongan Rumput", harga: 1000 },
+          { nama: "Kulit Buah", harga: 1400 },
+        ],
+        anorganik: [
+          { nama: "Botol Plastik", harga: 1200 },
+          { nama: "Kardus", harga: 800 },
+          { nama: "Kaleng", harga: 1500 },
+          { nama: "Botol Kaca", harga: 1800 },
+          { nama: "Styrofoam", harga: 1100 },
+        ],
+        ewaste: [
+          { nama: "Komputer Bekas", harga: 3000 },
+          { nama: "Telepon Seluler Bekas", harga: 2500 },
+          { nama: "Printer Bekas", harga: 2800 },
+          { nama: "Kabel dan Charger Bekas", harga: 1500 },
+          { nama: "Televisi Bekas", harga: 3500 },
+        ],
+      };
+
+      let editingIndex = -1;
+
+      function updateJenisSampah() {
+        const kategoriSelect = document.getElementById("kategori");
+        const jenisSampahSelect = document.getElementById("jenisSampah");
+        const selectedKategori = kategoriSelect.value;
+
+        jenisSampahSelect.innerHTML =
+          '<option value="" disabled selected>Pilih Jenis Sampah</option>';
+
+        if (selectedKategori) {
+          jenisSampahOptions[selectedKategori].forEach((option) => {
+            const opt = document.createElement("option");
+            opt.value = option.nama;
+            opt.textContent = option.nama;
+            jenisSampahSelect.appendChild(opt);
+          });
+        }
+      }
+
+      function addItem() {
+        const nama = document.getElementById("nama").value;
+        const kelas = document.getElementById("kelas").value;
+        const kategori = document.getElementById("kategori").value;
+        const jenisSampah = document.getElementById("jenisSampah").value;
+        const jumlahSampah = parseFloat(
+          document.getElementById("jumlahSampah").value
+        );
+        const pembayaran = document.getElementById("pembayaran").value;
+
+        if (
+          !nama ||
+          !kelas ||
+          !kategori ||
+          !jenisSampah ||
+          !jumlahSampah ||
+          !pembayaran
+        ) {
+          alert("Harap lengkapi semua inputan.");
+          return;
+        }
+
+        const harga = jenisSampahOptions[kategori].find(
+          (item) => item.nama === jenisSampah
+        ).harga;
+
+        const newItem = {
+          nama,
+          kelas,
+          kategori,
+          jenisSampah,
+          jumlahSampah,
+          harga,
+          pembayaran,
+        };
+
+        const cart = JSON.parse(localStorage.getItem("keranjang")) || [];
+
+        if (editingIndex !== -1) {
+          cart[editingIndex] = newItem;
+          editingIndex = -1;
+        } else {
+          cart.push(newItem);
+        }
+
+        localStorage.setItem("keranjang", JSON.stringify(cart));
+        resetForm();
+        renderCartTable();
+        renderReceipt();
+      }
+
+      function editItem(index) {
+        const cart = JSON.parse(localStorage.getItem("keranjang")) || [];
+        const item = cart[index];
+
+        document.getElementById("nama").value = item.nama;
+        document.getElementById("kelas").value = item.kelas;
+        document.getElementById("kategori").value = item.kategori;
+        updateJenisSampah();
+        document.getElementById("jenisSampah").value = item.jenisSampah;
+        document.getElementById("jumlahSampah").value = item.jumlahSampah;
+        document.getElementById("pembayaran").value = item.pembayaran;
+
+        editingIndex = index;
+      }
+
+      function deleteItem(index) {
+        const cart = JSON.parse(localStorage.getItem("keranjang")) || [];
+        cart.splice(index, 1);
+        localStorage.setItem("keranjang", JSON.stringify(cart));
+        renderCartTable();
+        renderReceipt();
+      }
+
+      function resetForm() {
+        document.getElementById("nama").value = "";
+        document.getElementById("kelas").value = "";
+        document.getElementById("kategori").value = "";
+        document.getElementById("jenisSampah").value = "";
+        document.getElementById("jumlahSampah").value = "";
+        document.getElementById("pembayaran").value = "";
+      }
+
+      function renderCartTable() {
+        const cart = JSON.parse(localStorage.getItem("keranjang")) || [];
+        const tbody = document
+          .getElementById("cartTable")
+          .querySelector("tbody");
+        tbody.innerHTML = "";
+
+        cart.forEach((item, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+          <td>${item.nama}</td>
+          <td>${item.kelas}</td>
+          <td>${item.kategori}</td>
+          <td>${item.jenisSampah}</td>
+          <td>${item.jumlahSampah}</td>
+          <td>${item.harga * item.jumlahSampah}</td>
+          <td>${item.pembayaran}</td>
+          <td>
+            <button onclick="editItem(${index})">Edit</button>
+            <button onclick="deleteItem(${index})">Hapus</button>
+          </td>
+        `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function renderReceipt() {
+        const cart = JSON.parse(localStorage.getItem("keranjang")) || [];
+        const receiptContent = document.getElementById("receiptContent");
+        receiptContent.innerHTML = "";
+
+        if (cart.length === 0) {
+          receiptContent.innerHTML = "<p>Tidak ada item di keranjang.</p>";
+          return;
+        }
+
+        let totalHarga = 0;
+        cart.forEach((item) => {
+          const itemTotal = item.harga * item.jumlahSampah;
+          totalHarga += itemTotal;
+
+          receiptContent.innerHTML += `
+          <p>${item.jumlahSampah} kg ${item.jenisSampah} (${item.kategori}): Rp ${itemTotal}</p>
+        `;
+        });
+
+        receiptContent.innerHTML += `<p><strong>Total: Rp ${totalHarga}</strong></p>`;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCartTable();
+        renderReceipt();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kritik Dan Saran</title>
+    <link rel="stylesheet" href="../stylee.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="https://www.mazda.co.id" class="BSD">BSD</a>
+
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../index.html#tentang">About Us</a></li>
+          <li><a href="../page/daftar-sampah.html">Daftar Sampah</a></li>
+          <li><a href="../page/formulir.html">Formulir Penjual Sampah</a></li>
+          <li><a href="../page/kritiksaran.html">Kritik Dan Saran</a></li>
+        </ul>
+        <div class="tombol">&#9776;</div>
+      </div>
+    </nav>
+    <section class="contact-section" id="contact">
+      <h2>Kritik Dan Saran</h2>
+      <form
+        action="https://script.google.com/macros/s/AKfycbyEUDYA-mlvycH5zBBD4JTA8IIrUaNEvQeJPnsGFdIpgOK9dE8nMfurai95Hp4bonS3/exec"
+        method="GET"
+        class="contact-form"
+      >
+        <div class="form-group">
+          <label for="name">Nama:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="name">Email:</label>
+          <input type="text" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Pesan:</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="tombol-kritik">Kirim Pesan</button>
+
+        
+      </form>
+    </section>
+    <script type="text/javascript">
+      const tombol = document.querySelector(".tombol");
+      const menu = document.querySelector(".menu");
+      tombol.addEventListener("click", () => {
+        menu.classList.toggle("aktif");
+      });
+    </script>
+  </body>
+</html>

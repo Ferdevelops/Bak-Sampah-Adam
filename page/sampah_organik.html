@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sampah Organik</title>
+    <link rel="stylesheet" href="../stylee.css" />
+    <style>
+     
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      button {
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 18px;
+      }
+      button:hover {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="https://www.mazda.co.id" class="BSD">BSD</a>
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../index.html#tentang">About Us</a></li>
+          <li><a href="../page/daftar-sampah.html">Daftar Sampah</a></li>
+          <li><a href="../page/formulir.html">Formulir Penjual Sampah</a></li>
+          <li><a href="../page/kritiksaran.html">Kritik Dan Saran</a></li>
+        </ul>
+        <div class="tombol">&#9776;</div>
+      </div>
+    </nav>
+
+    <h2>Sampah Organik</h2>
+    <table id="organicWasteTable">
+      <thead>
+        <tr>
+          <th>Jenis Sampah</th>
+          <th>Gambar</th>
+          <th>Harga per Kg</th>
+          <th>Tambah</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sayuran Busuk</td>
+          <td>
+            <img
+              src="../assets/sampahsayur.webp"
+              alt="Sayuran Busuk"
+              width="300"
+            />
+          </td>
+          <td>Rp 1.500</td>
+          <td>
+            <button onclick="addToCart('Sayuran Busuk', 1500)">Tambah</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Buah Busuk</td>
+          <td>
+            <img src="../assets/sampahbuah.jpg" alt="Buah Busuk" width="300" />
+          </td>
+          <td>Rp 1.800</td>
+          <td>
+            <button onclick="addToCart('Buah Busuk', 1800)">Tambah</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Daun Kering</td>
+          <td>
+            <img src="../assets/daunkering.jpg" alt="Daun Kering" width="300" />
+          </td>
+          <td>Rp 1.200</td>
+          <td>
+            <button onclick="addToCart('Daun Kering', 1200)">Tambah</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Potongan Rumput</td>
+          <td>
+            <img
+              src="../assets/potonganrumput.jpg"
+              alt="Potongan Rumput"
+              width="300"
+            />
+          </td>
+          <td>Rp 1.000</td>
+          <td>
+            <button onclick="addToCart('Potongan Rumput', 1000)">Tambah</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Kulit Buah</td>
+          <td>
+            <img src="../assets/kulitbuah.jpg" alt="Kulit Buah" width="300" />
+          </td>
+          <td>Rp 1.400</td>
+          <td>
+            <button onclick="addToCart('Kulit Buah', 1400)">Tambah</button>
+          </td>
+        </tr>
+        <tr></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 20px">
+      <a
+        href="keranjang.html"
+        style="
+          background-color: blue;
+          color: white;
+          padding: 10px 15px;
+          text-decoration: none;
+          border-radius: 5px;
+        "
+        >Lihat Keranjang</a
+      >
+    </div>
+
+    <script>
+      function addToCart(jenisSampah, harga) {
+        const jumlahSampah = prompt("Masukkan jumlah sampah (kg):");
+        if (jumlahSampah && !isNaN(jumlahSampah) && jumlahSampah > 0) {
+          const data = {
+            nama: localStorage.getItem("nama"),
+            kelas: localStorage.getItem("kelas"),
+            jenisSampah: jenisSampah,
+            jumlahSampah: jumlahSampah,
+            harga: harga * jumlahSampah,
+          };
+
+          var existingData =
+            JSON.parse(localStorage.getItem("keranjang")) || [];
+          existingData.push(data);
+          localStorage.setItem("keranjang", JSON.stringify(existingData));
+
+          alert(jenisSampah + " berhasil ditambahkan ke keranjang.");
+        } else {
+          alert(
+            "Jumlah tidak valid. Silakan masukkan angka yang lebih besar dari 0."
+          );
+        }
+      }
+
+      const tombol = document.querySelector(".tombol");
+      const menu = document.querySelector(".menu");
+      tombol.addEventListener("click", () => {
+        menu.classList.toggle("aktif");
+      });
+    </script>
+  </body>
+</html>

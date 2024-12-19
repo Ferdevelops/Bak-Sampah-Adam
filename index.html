@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BSD</title>
+    <link rel="stylesheet" href="stylee.css" />
+  </head>
+  <body>
+    <p></p>
+    <nav class="navbar">
+      <div class="container">
+        <a href="https://www.mazda.co.id/" class="BSD">BSD</a>
+
+        <ul class="menu">
+          <li><a href="#">Home</a></li>
+          <li><a href="#tentang">About Us</a></li>
+          <li><a href="page/daftar-sampah.html">Daftar Sampah</a></li>
+          <li><a href="page/formulir.html">Formulir Penjual Sampah</a></li>
+          <li><a href="page/kritiksaran.html">Kritik dan Saran</a></li>
+        </ul>
+        <div class="tombol">&#9776;</div>
+      </div>
+    </nav>
+    <section class="welcome-section" id="welcome">
+      <div class="welcome-text">
+        <h1>Selamat Datang</h1>
+        <p style="margin-bottom: 40px">Selamat Datang di Bank Sampah Dayat</p>
+        <p style="margin-bottom: 35px">
+          Bersama, kita bisa mengubah sampah menjadi sesuatu yang bernilai,
+          membantu menjaga bumi, sekaligus memberikan manfaat ekonomi bagi
+          masyarakat. Mari bergabung, pilah sampah Anda, dan jadilah bagian dari
+          gerakan peduli lingkungan
+        </p>
+        <p style="margin-bottom: 35px">
+          "Bank Sampah Dayat - Bersama Kita Wujudkan Bumi Lestari."
+        </p>
+        <a href="#tentang" class="btn-primary">Lihat Detail</a>
+      </div>
+    </section>
+    <section class="tentang-section" id="tentang">
+      <div class="image-container">
+        <img src="assets/banksampahdayat.webp" alt="Deskripsi gambar" />
+      </div>
+      <div class="text-container">
+        <h2>About Us</h2>
+        <p>
+          Bank sampah adalah sebuah sistem pengelolaan sampah berbasis
+          masyarakat yang bertujuan untuk mengurangi volume sampah yang berakhir
+          di tempat pembuangan akhir (TPA). Konsepnya mirip dengan bank
+          keuangan, di mana masyarakat dapat "menabung" sampah yang sudah
+          dipilah, seperti sampah anorganik (plastik, kertas, logam), dan
+          kemudian mendapatkan imbalan berupa uang atau poin yang dapat ditukar
+          dengan barang atau layanan.
+        </p>
+      </div>
+    </section>
+    <footer>
+      <p>Kontak Kami: BSD | Telepon: 0821-4369-5993</p>
+    </footer>
+
+    <script type="text/javascript">
+      const tombol = document.querySelector(".tombol");
+      const menu = document.querySelector(".menu");
+      tombol.addEventListener("click", () => {
+        menu.classList.toggle("aktif");
+      });
+    </script>
+  </body>
+</html>

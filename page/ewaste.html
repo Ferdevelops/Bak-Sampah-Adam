@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabel E-Waste</title>
+    <link rel="stylesheet" href="../stylee.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: white;
+      }
+      .navbar {
+        background: #212121;
+        margin: 0;
+        padding: 20px 30px;
+      }
+      .BSD {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+        color: yellow;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .menu {
+        margin: 0;
+        display: flex;
+        list-style: none;
+        padding: 0;
+        position: relative;
+        z-index: 10;
+      }
+      .menu li {
+        padding-left: 0;
+        margin-right: 10px;
+      }
+      .menu li a {
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      button {
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 18px;
+      }
+      button:hover {
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="https://www.mazda.co.id" class="BSD">BSD</a>
+        <ul class="menu">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../index.html#tentang">About Us</a></li>
+          <li><a href="../page/daftar-sampah.html">Daftar Sampah</a></li>
+          <li><a href="../page/formulir.html">Formulir Penjual Sampah </a></li>
+          <li><a href="../page/kritiksaran.html">Kritik Dan Saran</a></li>
+        </ul>
+        <div class="tombol">&#9776;</div>
+      </div>
+    </nav>
+
+    <h2>Sampah E-Waste</h2>
+    <table id="ewasteTable">
+      <thead>
+        <tr>
+          <th>Jenis Sampah</th>
+          <th>Gambar</th>
+          <th>Harga per Kg</th>
+          <th>Tambah</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Komputer Bekas</td>
+          <td>
+            <img
+              src="../assets/komputerbekas.jpeg"
+              alt="Komputer Bekas"
+              width="300"
+            />
+          </td>
+          <td>Rp 3.000</td>
+          <td>
+            <button onclick="addToCart('Komputer Bekas', 3000)">Tambah</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Telepon Seluler Bekas</td>
+          <td>
+            <img
+              src="../assets/teleponseluler.jpg"
+              alt="Telepon Seluler Bekas"
+              width="300"
+            />
+          </td>
+          <td>Rp 2.500</td>
+          <td>
+            <button onclick="addToCart('Telepon Seluler Bekas', 2500)">
+              Tambah
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>Printer Bekas</td>
+          <td>
+            <img src="../assets/print.jpg" alt="Printer Bekas" width="300" />
+          </td>
+          <td>Rp 2.800</td>
+          <td>
+            <button onclick="addToCart('Printer Bekas', 2800)">Tambah</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Kabel dan Charger Bekas</td>
+          <td>
+            <img
+              src="../assets/kabel.jpg"
+              alt="Kabel dan Charger Bekas"
+              width="300"
+            />
+          </td>
+          <td>Rp 1.500</td>
+          <td>
+            <button onclick="addToCart('Kabel dan Charger Bekas', 1500)">
+              Tambah
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>Televisi Bekas</td>
+          <td>
+            <img src="../assets/tv.jpg" alt="Televisi Bekas" width="300" />
+          </td>
+          <td>Rp 3.500</td>
+          <td>
+            <button onclick="addToCart('Televisi Bekas', 3500)">Tambah</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+ 
+    <div style="margin-top: 50px">
+      <a
+        href="keranjang.html"
+        style="
+          background-color: blue;
+          color: white;
+          padding: 10px 30px;
+          text-decoration: none;
+          border-radius: 50px;
+        "
+        >Lihat Keranjang</a
+      >
+    </div>
+    <script>
+      function addToCart(jenisSampah, harga) {
+        const jumlahSampah = prompt("Masukkan jumlah sampah (kg):");
+        if (jumlahSampah && !isNaN(jumlahSampah) && jumlahSampah > 0) {
+          const data = {
+            nama: localStorage.getItem("nama"), 
+            kelas: localStorage.getItem("kelas"),
+            jenisSampah: jenisSampah,
+            jumlahSampah: jumlahSampah,
+            harga: harga * jumlahSampah,
+          };
+
+          
+          var existingData =
+            JSON.parse(localStorage.getItem("keranjang")) || [];
+          existingData.push(data);
+          localStorage.setItem("keranjang", JSON.stringify(existingData));
+
+          alert(jenisSampah + " berhasil ditambahkan ke keranjang.");
+        } else {
+          alert(
+            "Jumlah tidak valid. Silakan masukkan angka yang lebih besar dari 0."
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
